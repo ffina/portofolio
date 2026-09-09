@@ -1,0 +1,1343 @@
+/* ============ Marquee ============ */
+/* Markup ditulis 1x (.marquee-group). js/marquee.js meng-clone secukupnya lalu
+   mengatur --marquee-shift (= lebar 1 grup) & --marquee-duration. Animasi geser
+   sejauh 1 grup lalu balik ke 0 — mulus karena selalu ada grup cadangan. */
+@keyframes scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(var(--marquee-shift, -50%)); }
+}
+
+.animate-marquee-container {
+    display: flex;
+    width: max-content;
+    animation: scroll var(--marquee-duration, 30s) linear infinite;
+    will-change: transform;
+}
+
+.animate-marquee-container .marquee-group {
+    flex: 0 0 auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-marquee-container { animation: none; }
+}
+
+/* ============ Experience gallery (homepage) ============ */
+.ronaldo-gallery {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    height: 650px;
+}
+
+.card {
+    position: relative;
+    flex: 0.7;
+    height: 450px;
+    background-color: #1a1a1a;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    overflow: hidden;
+    filter: grayscale(100%) brightness(0.6);
+    transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.card:hover, .card.active {
+    flex: 1.5;
+    height: 550px;
+    filter: grayscale(0%) brightness(1);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+.overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, transparent 40%, rgba(15, 15, 15, 0.9));
+    opacity: 0.8;
+}
+
+.card-content {
+    position: absolute;
+    bottom: 40px;
+    left: 30px;
+    right: 30px;
+    color: white;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s ease 0.3s;
+}
+
+.card.active .card-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-content span {
+    color: #4ade80;
+    font-weight: bold;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+.card-content h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 10px 0;
+    letter-spacing: -0.02em;
+}
+
+.card-content p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 12px;
+}
+
+.view-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #4ade80;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.view-more:hover {
+    border-bottom-color: #4ade80;
+}
+
+/* ============ Aksen nama di hero homepage ============ */
+.accent-underline {
+    position: relative;
+    color: #4ade80;
+    letter-spacing: normal;
+}
+
+.accent-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 4px;
+    background-color: rgba(74, 222, 128, 0.3);
+    border-radius: 2px;
+}
+
+/* ============ Hero page (5 subpage view-more) ============ */
+.hero-page {
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-page .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15,15,15,0.92) 10%, rgba(15,15,15,0.15) 70%);
+}
+
+.hero-page .hero-nav {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 40px;
+}
+
+.hero-page .hero-title {
+    position: relative;
+    z-index: 2;
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    padding: 0 40px 32px;
+    word-break: break-word;
+}
+
+.hero-page .hero-tags {
+    position: relative;
+    z-index: 2;
+    padding: 0 40px 40px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.hero-page .hero-tags span {
+    font-size: 0.75rem;
+    color: #4ade80;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+}
+
+/* ============ Hero fixed (gambar diam; nav, judul & konten scroll di atasnya) ============ */
+/* lapisan gambar: nempel di viewport, tidak ikut scroll */
+.hero-bg {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+/* no overlay — hero photo shows as-is */
+.hero-bg .hero-overlay {
+    display: none;
+}
+
+/* semua konten (termasuk judul) ada di flow normal → ikut scroll ke atas */
+.hero-flow {
+    position: relative;
+    z-index: 1;
+    margin-top: -100vh;   /* tarik ke atas supaya menimpa .hero-bg */
+}
+
+.hero-flow .hero-content {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 6vh;
+}
+
+.hero-flow .hero-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 40px;
+    margin-bottom: auto;
+}
+
+/* tombol "kembali" — pill gelap biar selalu keliatan di atas foto apa pun */
+.hero-flow .hero-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(15, 15, 15, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(6px);
+    color: #ffffff;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.hero-flow .hero-nav a:hover {
+    background: rgba(15, 15, 15, 0.85);
+    border-color: #4ade80;
+    color: #4ade80;
+}
+
+.hero-flow .hero-nav span {
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+.hero-flow .hero-title {
+    font-weight: 800;
+    line-height: 0.88;
+    letter-spacing: -0.03em;
+    color: #0f0f0f;   /* samain dengan background halaman */
+    font-size: clamp(3rem, 13vw, 13rem);
+    padding: 0 4vw 2vh;
+    margin: 0;
+}
+
+.hero-flow .hero-tags {
+    padding: 0 4vw;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.hero-flow .hero-tags span {
+    font-size: 0.75rem;
+    color: #4ade80;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+}
+
+/* konten setelah hero: buram & naik menutupi gambar saat scroll */
+.after-hero {
+    position: relative;
+    z-index: 1;
+    background-color: #0f0f0f;
+}
+
+/* ============ Timeline (connected dots) ============ */
+.timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 40px;
+    padding-bottom: 56px;
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+/* garis penghubung antar dot */
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    height: 100%;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.14);
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: transform 0.8s ease 0.2s;
+}
+.timeline-item.is-visible::before {
+    transform: scaleY(1);
+}
+
+.timeline-item:last-child::before {
+    content: none;
+}
+
+/* dot */
+.timeline-marker {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #0f0f0f;
+    border: 2px solid #4ade80;
+    box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.12);
+    transform: scale(0);
+    transition: transform 0.4s ease 0.3s;
+}
+.timeline-item.is-visible .timeline-marker {
+    transform: scale(1);
+}
+
+.timeline-meta {
+    color: #4ade80;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 6px;
+}
+
+.timeline-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+}
+
+.timeline-desc {
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* ============ Timeline horizontal (label selang-seling atas/bawah) ============ */
+.htl-track {
+    position: relative;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* garis horizontal — dari dot pertama ke dot terakhir (3 node) */
+.htl-track::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 16.66%;
+    right: 16.66%;
+    height: 2px;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.htl-node {
+    position: relative;
+    flex: 1;
+    height: 148px;
+}
+
+.htl-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #0f0f0f;
+    border: 2px solid #4ade80;
+    box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.12);
+    z-index: 1;
+}
+
+.htl-label {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 96%;
+    text-align: center;
+}
+
+.htl-node:nth-child(odd) .htl-label { bottom: calc(50% + 20px); }
+.htl-node:nth-child(even) .htl-label { top: calc(50% + 20px); }
+
+.htl-meta {
+    display: block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #4ade80;
+    margin-bottom: 3px;
+}
+
+.htl-term {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* badge "sedang berjalan" */
+.term-now {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 0.58rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #4ade80;
+    border: 1px solid rgba(74, 222, 128, 0.4);
+    border-radius: 999px;
+    padding: 2px 9px;
+}
+
+@media (max-width: 480px) {
+    .htl-node { height: 124px; }
+    .htl-term { font-size: 0.74rem; }
+    .htl-meta { font-size: 0.55rem; letter-spacing: 0.12em; }
+}
+
+/* galeri gambar — otomatis rapi untuk 1 gambar maupun banyak */
+.timeline-gallery {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+}
+
+.timeline-gallery.single {
+    grid-template-columns: minmax(0, 460px);
+}
+
+.timeline-photo {
+    aspect-ratio: 4 / 3;
+    border-radius: 10px;
+    background-color: #1a1a1a;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.timeline-photo figcaption {
+    display: none;
+}
+
+@media (max-width: 480px) {
+    .timeline-item { padding-left: 32px; }
+    .timeline-title { font-size: 1.35rem; }
+}
+
+/* ============ Feedback mahasiswa ("Kata mereka") ============ */
+.feedback-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.feedback-state {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.feedback-card {
+    position: relative;
+    flex: 1 1 240px;
+    max-width: 340px;
+    background: #151515;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 24px 20px 20px;
+    transition: transform 0.25s ease;
+}
+
+.feedback-card:hover {
+    transform: rotate(0deg) !important;
+}
+
+.feedback-quote {
+    position: absolute;
+    top: 4px;
+    left: 14px;
+    color: #4ade80;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.feedback-card blockquote {
+    margin: 0;
+    padding-top: 10px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.92rem;
+    line-height: 1.65;
+}
+
+.feedback-card-clickable {
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+    color: inherit;
+}
+
+.feedback-more {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #4ade80;
+}
+
+@media (max-width: 767px) {
+    .feedback-card {
+        flex: 1 1 calc(50% - 8px);
+        max-width: none;
+        padding: 18px 14px 14px;
+    }
+    .feedback-card blockquote {
+        font-size: 0.78rem;
+        line-height: 1.55;
+    }
+    .feedback-quote {
+        font-size: 1.5rem;
+    }
+}
+
+/* ============ Embed PDF (click-to-activate) ============ */
+.pdf-embed {
+    position: relative;
+    height: 60vh;
+    min-height: 420px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #151515;
+}
+
+.pdf-embed [data-pdf-frame] {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    pointer-events: none;   /* diaktifkan lewat js/pdf-preview.js */
+}
+
+.pdf-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    cursor: pointer;
+    background: rgba(21, 21, 21, 0.72);
+    backdrop-filter: blur(2px);
+    transition: background 0.2s ease;
+}
+
+.pdf-overlay:hover {
+    background: rgba(21, 21, 21, 0.55);
+}
+
+.pdf-overlay-btn {
+    border: 1px solid #4ade80;
+    color: #4ade80;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    padding: 10px 22px;
+    border-radius: 999px;
+    background: rgba(15, 15, 15, 0.6);
+}
+
+.pdf-overlay:hover .pdf-overlay-btn {
+    background: #4ade80;
+    color: #0f2e1a;
+}
+
+/* ============ Section les privat (zoom on scroll) ============ */
+.zoom-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: #151515;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .zoom-section {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.zoom-section .zoom-copy {
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.zoom-section .zoom-image-wrap {
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+}
+
+.zoom-section .zoom-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1);
+    will-change: transform;
+}
+
+/* ---- Carousel di dalam area zoom (efek zoom-scroll tetap jalan) ---- */
+.carousel-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.carousel-slide {
+    flex: 0 0 100%;
+    height: 100%;
+    background-color: #1a1a1a;
+    background-size: cover;
+    background-position: center;
+}
+
+/* tombol & dots di luar elemen yang di-scale → tetap tajam */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(15, 15, 15, 0.55);
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.carousel-btn svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+.carousel-btn:hover {
+    background: rgba(15, 15, 15, 0.85);
+    border-color: #4ade80;
+    color: #4ade80;
+}
+
+.carousel-prev { left: 12px; }
+.carousel-next { right: 12px; }
+
+.carousel-dots {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    gap: 6px;
+}
+
+.carousel-dot {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.carousel-dot.active {
+    background: #4ade80;
+}
+
+/* ============ Activity carousel (per-item photo slider) ============ */
+.activity-carousel {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #151515;
+}
+
+.activity-carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease;
+}
+
+.activity-slide {
+    flex: 0 0 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+/* ============ Instagram post grid (static thumbnails) ============ */
+.ig-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .ig-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.ig-item {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    background: #151515;
+}
+
+.ig-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.ig-item:hover img {
+    transform: scale(1.05);
+}
+
+/* ============ Projects (filterable grid + modal) ============ */
+.filter-pill {
+    font-size: 0.8rem;
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #9ca3af;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.filter-pill:hover { border-color: #4ade80; color: #4ade80; }
+.filter-pill.active { background: #4ade80; border-color: #4ade80; color: #0f2e1a; font-weight: 600; }
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+    transition: opacity 0.2s ease;
+}
+.project-grid.is-filtering {
+    opacity: 0;
+}
+
+.project-card {
+    display: block;
+    text-align: left;
+    background: #151515;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+    font-family: inherit;
+    color: inherit;
+    text-decoration: none;
+}
+.project-card:hover { transform: translateY(-4px); border-color: rgba(74, 222, 128, 0.4); }
+.project-card.is-hidden { display: none; }
+
+.project-thumb {
+    width: 100%;
+    height: 120px;
+    border-radius: 8px;
+    background: #1f1f1f;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 12px;
+}
+
+.project-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #4ade80;
+    margin-bottom: 8px;
+}
+
+.project-title { font-size: 1rem; font-weight: 700; color: #fff; margin: 0 0 4px; }
+.project-desc {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin: 0 0 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.project-desc.is-expanded {
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    overflow: visible;
+}
+.project-read-more {
+    display: none;
+    font-size: 0.75rem;
+    color: #4ade80;
+    font-weight: 600;
+    margin-top: 4px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+.project-read-more.is-visible {
+    display: inline-block;
+}
+.project-link { display: inline-flex; align-items: center; gap: 4px; font-size: 0.8rem; color: #4ade80; font-weight: 600; }
+
+.project-show-all {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4ade80;
+    background: transparent;
+    border: 1px solid #4ade80;
+    border-radius: 999px;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+.project-show-all:hover {
+    background: #4ade80;
+    color: #0f2e1a;
+}
+
+.project-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 15, 15, 0.85);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 20px;
+}
+.project-modal[hidden] { display: none; }
+
+.project-modal-content {
+    background: #151515;
+    border-radius: 16px;
+    max-width: 560px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 32px;
+    position: relative;
+}
+
+.project-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+.project-modal-close:hover { color: #4ade80; }
+
+/* ============ Skills (scroll-scrubbed reveal) ============ */
+.skills-scroll {
+    position: relative;
+    overflow-x: clip;            /* icon yang meleset tak bikin scroll horizontal */
+}
+
+.skills-stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.skill-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    transform:
+        translate(-50%, -50%)
+        translate(var(--grid-x), var(--grid-y))
+        scale(0.4);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    will-change: transform, opacity;
+}
+
+.skill-icon-inner {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background: #151515;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #e5e7eb;
+}
+
+.skill-icon-inner img {
+    width: 28px;
+    height: 28px;
+}
+
+@media (max-width: 480px) {
+    .skill-icon-inner { width: 52px; height: 52px; }
+    .skill-icon-inner img { width: 26px; height: 26px; }
+}
+
+.skill-icon-fallback {
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.skill-icon-fallback span {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #4ade80;
+    letter-spacing: 0.02em;
+}
+
+.skill-icon-label {
+    font-size: 0.7rem;
+    color: #9ca3af;
+    white-space: nowrap;
+}
+
+.skill-icon[data-state="active"] {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.5);
+}
+
+.skill-icon[data-state="settled"] {
+    opacity: 1;
+    transform:
+        translate(-50%, -50%)
+        translate(var(--grid-x), var(--grid-y))
+        scale(0.85);
+}
+
+.skill-chip {
+    font-size: 0.8rem;
+    color: #d1d5db;
+    background: #151515;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    padding: 8px 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skill-icon { transition: none; }
+}
+
+/* ============ Scroll-reveal / entrance / page fade-in ============ */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* jaga efek hover kartu project tetap jalan setelah reveal selesai */
+.project-card.reveal.is-visible:hover {
+    transform: translateY(-4px);
+}
+
+@keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.hero-entrance {
+    opacity: 0;
+    animation: heroFadeUp 0.9s ease 0.15s forwards;
+}
+
+body {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+body.is-loaded {
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal.is-visible,
+    .hero-entrance,
+    .timeline-item::before,
+    .timeline-marker {
+        transition: none;
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+    body { opacity: 1; }
+}
+
+/* ============ Lanyard card (hero, drag + swing-back) ============ */
+.lanyard-wrap {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 1px;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.lanyard-string {
+    position: absolute;
+    top: 0;
+    left: -9px;
+    width: 18px;
+    height: 100px;
+    background: #4ade80;
+    border-radius: 3px;
+    overflow: hidden;
+    transform-origin: top center;
+    will-change: height, transform;
+}
+
+.lanyard-strap-text {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    white-space: nowrap;
+    font-size: 7.5px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    line-height: 18px;
+    text-transform: uppercase;
+    color: #0f2e1a;
+    user-select: none;
+}
+
+.lanyard-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, 100px);
+    width: 168px;
+    background: #151515;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+    cursor: grab;
+    touch-action: none;
+    pointer-events: auto;
+    transform-origin: top center;
+    will-change: transform;
+}
+
+.lanyard-card:active {
+    cursor: grabbing;
+}
+
+.lanyard-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    background-color: #1f1f1f;
+    margin-bottom: 10px;
+}
+
+.lanyard-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    margin: 0;
+}
+
+/* ============ Soft Skills — paired copy + trait stack ============ */
+.soft-skills-pair {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 32px;
+    align-items: center;
+    max-width: 900px;
+    margin: 60px auto 0;
+    padding: 0 20px;
+}
+@media (max-width: 640px) {
+    .soft-skills-pair { grid-template-columns: 1fr; text-align: center; }
+}
+
+.skills-label {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #4ade80;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.trait-stack-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.trait-stack {
+    position: relative;
+    width: 200px;
+    height: 120px;
+    margin: 0 auto;
+}
+
+.trait-card {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: #151515;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(.2, .8, .2, 1), opacity 0.4s ease;
+}
+
+.trait-card:nth-child(1) { transform: rotate(0deg) translate(0, 0); z-index: 4; }
+.trait-card:nth-child(2) { transform: rotate(-4deg) translate(-6px, 6px); z-index: 3; opacity: 0.9; }
+.trait-card:nth-child(3) { transform: rotate(6deg) translate(8px, 10px); z-index: 2; opacity: 0.8; }
+.trait-card:nth-child(4) { transform: rotate(-2deg) translate(2px, 14px); z-index: 1; opacity: 0.7; pointer-events: none; }
+
+.trait-card.is-leaving {
+    transform: translateX(140%) rotate(18deg) !important;
+    opacity: 0 !important;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.trait-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #6b7280;
+}
+
+.trait-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.3;
+}
+
+.trait-hint {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #6b7280;
+    margin-top: 14px;
+}
+
+/* ============ Hero sizing ============ */
+.hero-section {
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+@media (max-width: 767px) {
+    .hero-section {
+        padding-bottom: 90px;   /* reserve space so content clears the marquee bar */
+    }
+}
+
+@media (max-width: 767px) {
+    /* h1. prefix so it beats Tailwind's .text-6xl (CDN loads after this sheet);
+       scoped below md so the existing md:text-8xl still takes over at >=768px */
+    h1.hero-name {
+        font-size: clamp(3.25rem, 13vw, 4.5rem);
+    }
+
+    .hero-meta {
+        transform: scale(0.85);
+        transform-origin: left top;
+    }
+}
+
+/* ============ Mobile overrides (<= 767px) ============ */
+@media (max-width: 767px) {
+    /* lanyard hidden on phones */
+    .lanyard-wrap {
+        display: none;
+    }
+
+    /* Experience gallery becomes a swipeable snap carousel.
+       Full-bleed container, but a 40px inset on BOTH sides via padding-left +
+       trailing ::after gutter — so a snapped card always keeps a thin margin on
+       each side, and only the partially-shown peek card runs off the screen edge. */
+    .ronaldo-gallery {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 40px;
+        height: auto;
+        gap: 12px;
+        padding: 0 0 8px 40px;
+        margin-left: -40px;
+        margin-right: -40px;
+        width: calc(100% + 80px);
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .ronaldo-gallery::-webkit-scrollbar {
+        display: none;
+    }
+    .ronaldo-gallery::after {
+        content: '';
+        flex: 0 0 56px;   /* trailing gutter so the last card keeps its right margin */
+    }
+    .ronaldo-gallery .card {
+        flex: 0 0 calc(100% - 40px);   /* ~40px clear on both sides when snapped */
+        scroll-snap-align: start;
+        height: 78vh;
+        max-height: 640px;
+        filter: none !important;
+    }
+    .ronaldo-gallery .card .card-content {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        left: 18px;
+        right: 18px;
+        padding: 24px;
+    }
+    .ronaldo-gallery .card-content span {
+        font-size: 0.65rem;
+    }
+    .ronaldo-gallery .card-content h2 {
+        font-size: 1.5rem;
+        margin: 6px 0;
+    }
+    .ronaldo-gallery .card-content p {
+        font-size: 0.8rem;
+        -webkit-line-clamp: unset;
+        line-clamp: unset;
+        overflow: visible;
+    }
+
+    /* Projects filter pills become a horizontal scroller.
+       div[...] + !important so it reliably beats Tailwind's .flex-wrap / .justify-center
+       (equal specificity + CDN loads after this sheet = intermittent wrap otherwise). */
+    div[data-filter-group] {
+        flex-wrap: nowrap !important;
+        justify-content: flex-start !important;
+        overflow-x: auto;
+        padding: 0 20px 4px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    div[data-filter-group]::-webkit-scrollbar {
+        display: none;
+    }
+    .filter-pill {
+        flex: 0 0 auto;
+    }
+}

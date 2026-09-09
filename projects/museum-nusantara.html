@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Museum Nusantara — Sharfina Ardhiyanti Anam</title>
+<link rel="stylesheet" href="../css/styles.css">
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#0f0f0f] text-white">
+
+<div class="hero-bg" style="background-image: url('../assets/images/project/museum-1.png');">
+    <div class="hero-overlay"></div>
+</div>
+
+<div class="hero-flow">
+    <div class="hero-content">
+        <div class="hero-nav">
+            <a href="../index.html" data-back-link class="text-sm text-gray-300 hover:text-white transition">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="20" y1="12" x2="4" y2="12"></line>
+                    <polyline points="11 5 4 12 11 19"></polyline>
+                </svg>
+                <span>Back to portfolio</span>
+            </a>
+            <span class="text-xs tracking-[0.2em] uppercase text-gray-400">Web &amp; 3D</span>
+        </div>
+        <h1 class="hero-title">Museum Nusantara</h1>
+        <div class="hero-tags">
+            <span>Three.js · WebGL</span>
+            <span>3D virtual gallery</span>
+        </div>
+    </div>
+
+    <div class="after-hero">
+        <section class="max-w-4xl mx-auto px-6 md:px-10 py-20">
+            <p class="text-lg text-gray-300 leading-relaxed mb-12">
+                An interactive 3D virtual museum web app with first-person controls, showcasing
+                Nusantara cultural exhibits (Reog dance, Gandrung, and more) complete with
+                lighting and informative UI overlays. 3D assets sourced and curated from Sketchfab under Creative Commons licensing
+            </p>
+
+            <div class="activity-carousel mb-16" data-activity-carousel style="aspect-ratio: 16 / 9;">
+                <div class="activity-carousel-track" data-activity-track>
+                    <div class="activity-slide" style="background-image: url('../assets/images/project/museum-1.png');"></div>
+                    <div class="activity-slide" style="background-image: url('../assets/images/project/museum-2.png');"></div>
+                    <div class="activity-slide" style="background-image: url('../assets/images/project/museum-3.png');"></div>
+                    <div class="activity-slide" style="background-image: url('../assets/images/project/museum-4.png');"></div>
+                    <div class="activity-slide" style="background-image: url('../assets/images/project/museum-5.png');"></div>
+                </div>
+                <button type="button" class="carousel-btn carousel-prev" data-activity-prev aria-label="Previous image">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button type="button" class="carousel-btn carousel-next" data-activity-next aria-label="Next image">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+                <div class="carousel-dots" data-activity-dots></div>
+            </div>
+
+            <h2 class="text-2xl font-light uppercase tracking-widest mb-8">Highlights</h2>
+            <ul class="list-disc pl-5 space-y-3 text-gray-300 leading-relaxed mb-16">
+                <li>First-person controls (WASD &amp; mouse look) with physics and jump mechanics</li>
+                <li>Spatial raycasting for object interaction and visual highlighting</li>
+                <li>Collision detection system and ambient / spatial audio</li>
+            </ul>
+
+            <h2 class="text-2xl font-light uppercase tracking-widest mb-6">Tech stack</h2>
+            <div class="flex flex-wrap gap-2">
+                <span class="text-xs uppercase tracking-wider text-[#4ade80] border border-[#4ade80]/30 rounded-full px-3 py-1">Three.js</span>
+                <span class="text-xs uppercase tracking-wider text-[#4ade80] border border-[#4ade80]/30 rounded-full px-3 py-1">WebGL</span>
+                <span class="text-xs uppercase tracking-wider text-[#4ade80] border border-[#4ade80]/30 rounded-full px-3 py-1">JavaScript</span>
+                <span class="text-xs uppercase tracking-wider text-[#4ade80] border border-[#4ade80]/30 rounded-full px-3 py-1">HTML5 / CSS3</span>
+                <span class="text-xs uppercase tracking-wider text-[#4ade80] border border-[#4ade80]/30 rounded-full px-3 py-1">Git</span>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script src="../js/activity-carousel.js"></script>
+<script src="../js/scroll-animations.js"></script>
+<script src="../js/page-entrance.js"></script>
+<script src="../js/back-nav.js"></script>
+</body>
+</html>

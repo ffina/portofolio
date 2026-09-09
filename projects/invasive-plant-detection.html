@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invasive Plant Detection — Sharfina Ardhiyanti Anam</title>
+<link rel="stylesheet" href="../css/styles.css">
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#0f0f0f] text-white">
+
+<div class="hero-bg" style="background-image: url('../assets/images/project/invasive-plant-detection.jpg');">
+    <div class="hero-overlay"></div>
+</div>
+
+<div class="hero-flow">
+    <div class="hero-content">
+        <div class="hero-nav">
+            <a href="../index.html" data-back-link class="text-sm text-gray-300 hover:text-white transition">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="20" y1="12" x2="4" y2="12"></line>
+                    <polyline points="11 5 4 12 11 19"></polyline>
+                </svg>
+                <span>Back to portfolio</span>
+            </a>
+            <span class="text-xs tracking-[0.2em] uppercase text-gray-400">AI &amp; ML</span>
+        </div>
+        <h1 class="hero-title">Invasive plant detection</h1>
+        <div class="hero-tags">
+            <span>YOLO26 · Python</span>
+            <span>Object detection</span>
+        </div>
+    </div>
+
+    <div class="after-hero">
+        <section class="max-w-4xl mx-auto px-6 md:px-10 py-20">
+            <p class="text-lg text-gray-300 leading-relaxed mb-12">
+                A YOLO26 model that detects 5 invasive plant species from 1,250+ annotated
+                images sourced from GBIF &amp; iNaturalist, focused on Baluran National Park.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                <div class="reveal bg-[#151515] rounded-xl p-6 text-center">
+                    <p class="text-3xl font-bold text-[#4ade80]" data-count-target="0.922" data-count-decimals="3">0.000</p>
+                    <p class="text-sm text-gray-400 mt-1">mAP50</p>
+                </div>
+                <div class="reveal bg-[#151515] rounded-xl p-6 text-center">
+                    <p class="text-3xl font-bold text-[#4ade80]" data-count-target="0.848" data-count-decimals="3">0.000</p>
+                    <p class="text-sm text-gray-400 mt-1">Recall</p>
+                </div>
+                <div class="reveal bg-[#151515] rounded-xl p-6 text-center">
+                    <p class="text-3xl font-bold text-[#4ade80]" data-count-target="10" data-count-suffix="%">0%</p>
+                    <p class="text-sm text-gray-400 mt-1">False-positive rate</p>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-light uppercase tracking-widest mb-8">Approach &amp; robustness</h2>
+            <p class="text-gray-300 leading-relaxed">
+                Annotation refinement and hyperparameter tuning raised the recall of critical
+                classes from 0.639 to 0.805 and mAP50 to 0.926. The model was stress-tested for
+                robustness on 230 images from 13 non-target species with similar visual
+                appearance, paired with a false-positive mitigation strategy.
+            </p>
+        </section>
+    </div>
+</div>
+
+<script src="../js/scroll-animations.js"></script>
+<script src="../js/page-entrance.js"></script>
+<script src="../js/back-nav.js"></script>
+</body>
+</html>
