@@ -1,0 +1,33 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <title>Data automation flow illustration</title>
+  <rect width="800" height="500" fill="#3a3a3a"/>
+
+  <circle cx="150" cy="420" r="220" fill="#3d6149"/>
+
+  <g stroke="#2f6b46" stroke-width="1.5" fill="none">
+    <line x1="120" y1="90" x2="280" y2="150"/>
+    <line x1="280" y1="150" x2="420" y2="80"/>
+    <line x1="280" y1="150" x2="380" y2="260"/>
+    <line x1="420" y1="80" x2="600" y2="140"/>
+    <line x1="380" y1="260" x2="560" y2="290"/>
+    <line x1="560" y1="290" x2="680" y2="200"/>
+    <line x1="380" y1="260" x2="250" y2="340"/>
+    <line x1="600" y1="140" x2="680" y2="200"/>
+  </g>
+
+  <g>
+    <circle cx="120" cy="90" r="6" fill="#4ade80"/>
+    <circle cx="280" cy="150" r="8" fill="#4ade80"/>
+    <circle cx="420" cy="80" r="5" fill="#e5e5e5"/>
+    <circle cx="380" cy="260" r="7" fill="#4ade80"/>
+    <circle cx="600" cy="140" r="5" fill="#2f6b46"/>
+    <circle cx="560" cy="290" r="6" fill="#e5e5e5"/>
+    <circle cx="680" cy="200" r="5" fill="#4ade80"/>
+    <circle cx="250" cy="340" r="6" fill="#2f6b46"/>
+  </g>
+
+  <g fill="#1f2e22" stroke="#4ade80" stroke-width="1.5">
+    <path d="M480 340 h90 a10 10 0 0 1 10 10 v40 a10 10 0 0 1 -10 10 h-60 l-15 18 v-18 h-15 a10 10 0 0 1 -10 -10 v-40 a10 10 0 0 1 10 -10 Z"/>
+    <path d="M620 360 h70 a8 8 0 0 1 8 8 v32 a8 8 0 0 1 -8 8 h-45 l-12 14 v-14 h-13 a8 8 0 0 1 -8 -8 v-32 a8 8 0 0 1 8 -8 Z"/>
+  </g>
+</svg>

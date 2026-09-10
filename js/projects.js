@@ -2,13 +2,14 @@ const PROJECT_DETAILS = {
     'loan-default': {
         category: 'AI & ML',
         title: 'Loan default prediction',
-        image: 'assets/images/project/loan-default.jpg',
+        image: 'assets/images/project/loan-default.png',
         tags: ['Python', 'Scikit-Learn', 'LightGBM', 'SMOTE'],
-        description: 'Comparative analysis of 5 models (LightGBM, Random Forest, Decision Tree, KNN, MLP) with feature selection, PCA, and SMOTE/ADASYN oversampling for an imbalanced dataset of 67,463 rows.',
+        description: 'End-to-end Machine Learning pipeline to mitigate financial credit risk on high-volume imbalanced financial datasets (67k+ records). Evaluated 5 classification models with advanced resampling techniques to maximize recall and prevent costly default risks.',
         highlights: [
-            'SMOTE gave the best balance of Recall & F1-Score; ADASYN raised Recall more aggressively (KNN reached 0.41) at the cost of F1-Score',
-            'PCA (28 components) improved LightGBM’s F1-Score from 0.68 to 0.71 — the best model without data balancing'
-        ]
+            'Optimized credit risk detection using SMOTE & ADASYN techniques, significantly boosting minority class recall for high-risk borrower detection.',
+            'Applied Dimensionality Reduction (PCA) with LightGBM, raising F1-Score from 0.68 to 0.71 while maintaining low computational latency.'
+        ],
+        paperUrl: 'assets/papers/loan-default-paper.pdf'
     },
     'smartlaundry': {
         category: 'UI/UX',
@@ -49,19 +50,19 @@ const PROJECT_DETAILS = {
     'purchasing-dashboard': {
         category: 'Data & security',
         title: 'Purchasing dashboard',
-        image: 'assets/images/project/purchasing-dashboard.jpg',
+        image: 'assets/images/project/purchasing-dashboard.png',
         tags: ['Power BI', 'DAX', 'Data modeling'],
         description: 'An interactive sales dashboard recreating the Adventure Works case study, applying data modeling and visualization to analyze sales, profit margin, and quantity per product category.'
     },
     'file-encryption': {
         category: 'Data & security',
         title: 'Secure file encryption system',
-        image: 'assets/images/project/file-encryption.jpg',
+        image: 'assets/images/project/file-encryption.png',
         tags: ['AES', 'DES', 'RC4', 'RSA'],
-        description: 'A file-security flow supporting AES, DES & RC4 for symmetric encryption, plus RSA for key management.',
+        description: 'End-to-end secure file encryption architecture combining high-speed symmetric ciphers (AES, DES, RC4) with asymmetric key management (RSA) to guarantee enterprise data confidentiality and integrity.',
         highlights: [
-            'Generate, store, and manage RSA key pairs following private-key handling best practices, with encryption–decryption integrity validation across all algorithms',
-            'A clean, easy-to-use frontend for end-to-end file encryption–decryption operations'
+            'Implemented secure RSA public-private key pair management and validation workflows for end-to-end data encryption.',
+            'Built an intuitive, security-focused web client for seamless client-side file encryption and decryption operations.'
         ]
     }
 };
@@ -139,12 +140,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const imageHtml = data.image
             ? `<div style="width:100%;aspect-ratio:16/10;border-radius:12px;margin-bottom:18px;background-color:#1f1f1f;background-image:url('${data.image}');background-size:cover;background-position:center;"></div>`
             : '';
+        const paperHtml = data.paperUrl
+            ? `<a href="${data.paperUrl}" target="_blank" rel="noopener" class="modal-paper-link" style="display:inline-block;font-size:0.8rem;font-weight:600;margin-bottom:16px;">Read the paper (PDF)</a><br>`
+            : '';
         body.innerHTML = `
             ${imageHtml}
             <p style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:#4ade80;margin-bottom:8px;">${data.category}</p>
             <h3 style="font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:14px;">${data.title}</h3>
             <p style="color:#d1d5db;line-height:1.7;margin-bottom:16px;">${data.description}</p>
-            ${highlightsHtml ? `<ul style="color:#9ca3af;font-size:0.9rem;line-height:1.6;padding-left:18px;margin-bottom:16px;">${highlightsHtml}</ul>` : ''}
+            ${highlightsHtml ? `<ul style="list-style: disc; color:#9ca3af;font-size:0.9rem;line-height:1.6;padding-left:18px;margin-bottom:16px;">${highlightsHtml}</ul>` : ''}
+            ${paperHtml}
             <div style="margin-top:12px;">${tagsHtml}</div>
             ${figmaHtml}
         `;

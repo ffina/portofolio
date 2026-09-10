@@ -928,6 +928,15 @@
 }
 .project-modal-close:hover { color: #4ade80; }
 
+.modal-paper-link {
+    color: #4ade80;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.modal-paper-link:hover {
+    color: #ffffff;
+}
+
 /* ============ Skills (scroll-scrubbed reveal) ============ */
 .skills-scroll {
     position: relative;
@@ -1252,7 +1261,7 @@ body.is-loaded {
     /* h1. prefix so it beats Tailwind's .text-6xl (CDN loads after this sheet);
        scoped below md so the existing md:text-8xl still takes over at >=768px */
     h1.hero-name {
-        font-size: clamp(3.25rem, 13vw, 4.5rem);
+        font-size: clamp(3.5rem, 15vw, 4.5rem);
     }
 
     .hero-meta {
