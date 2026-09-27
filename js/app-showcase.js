@@ -20,7 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: 'Admin — Incoming SOS', desc: 'Admins view incoming SOS signals and mark them as handled or remove them.' },
         { title: 'Admin — Broadcast Alert', desc: 'Admins broadcast alerts (Info, Warning, Danger) as push notifications to every user.' },
         { title: 'Reports', desc: 'Users submit community disaster reports with a photo, location, and description; submissions show a status (pending, verified, rejected) that admins can update.' },
-        { title: 'Admin — Manage Reports', desc: 'Admins review community reports, update their status (Pending, Verified, Rejected), and remove entries when no longer needed.' }
+        { title: 'Admin — Manage Reports', desc: 'Admins review community reports, update their status (Pending, Verified, Rejected), and remove entries when no longer needed.' },
+        { title: 'AI Assistant', desc: 'A chatbot for emergency conditions and disaster mitigation guidance, answering user questions in a focused, topic-locked conversation.' }
     ];
     const count = screens.length;
     let index = 0;
